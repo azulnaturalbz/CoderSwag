@@ -1,7 +1,8 @@
-package org.silvatech.coderswag
+package org.silvatech.coderswag.Controller
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import org.silvatech.coderswag.R
 
 class MainActivity : AppCompatActivity() {
 
