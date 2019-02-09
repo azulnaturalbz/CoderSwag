@@ -8,7 +8,7 @@ object DataService {
 
     val categories = listOf(
         Category("SHIRTS", "shirtimage"),
-        Category("HOODIER", "hoodieimage"),
+        Category("HOODIES", "hoodieimage"),
         Category("HATS","hatimage"),
         Category("DIGITAL","digitalgoodsimage")
     )
