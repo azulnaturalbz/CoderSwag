@@ -1,5 +1,6 @@
 package org.silvatech.coderswag.Controller
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import org.silvatech.coderswag.Adapters.CategoryRecycleAdapter
 import org.silvatech.coderswag.Model.Category
 import org.silvatech.coderswag.R
 import org.silvatech.coderswag.Services.DataService
+import org.silvatech.coderswag.Utilities.EXTRA_CATEGORY
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +23,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = CategoryRecycleAdapter(this,DataService.categories)
+        adapter = CategoryRecycleAdapter(this, DataService.categories) {category ->
+            val productIntent = Intent(this, ProductsActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY,category.title)
+            startActivity(productIntent)
+
+        }
 
         categoryLV.adapter = adapter
 
@@ -31,9 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         categoryLV.setHasFixedSize(true)
 
-//        categoryLV.setOnItemClickListener { adapterView, view, i, l ->
-//            val category = DataService.categories[i]
-//            Toast.makeText(this,"You clicked on the ${category.title} cell",Toast.LENGTH_SHORT)
-//        }
+
+
     }
 }

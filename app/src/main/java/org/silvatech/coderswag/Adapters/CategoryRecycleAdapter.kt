@@ -11,25 +11,26 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.category_list_item.view.*
 import org.silvatech.coderswag.Model.Category
 import org.silvatech.coderswag.R
+import org.silvatech.coderswag.Services.DataService.categories
 
-class CategoryRecycleAdapter(val context: Context, val categories: List<Category>) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
+class CategoryRecycleAdapter(val context: Context, val categories: List<Category>, val itemClick: (Category) -> Unit) : RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup?, p1: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
             .inflate(R.layout.category_list_item,parent,false)//To change body of created functions use File | Settings | File Templates.
-        return Holder(view)
+        return Holder(view,itemClick)
     }
 
     override fun getItemCount(): Int {
         return categories.count()//To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder?, position: Int) {
         holder?.bindCategory(categories[position],context) //To change body of created functions use File | Settings | File Templates.
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View?, val itemClick: (Category) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val categoryImage = itemView?.findViewById<ImageView>(R.id.categoryIV)
         val categoryName = itemView?.findViewById<TextView>(R.id.categoryTV)
 
@@ -39,6 +40,8 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
 
             categoryImage?.setImageResource(resourceId)
             categoryName?.text = category.title
+
+            itemView.setOnClickListener { itemClick(category) }
         }
     }
 }
